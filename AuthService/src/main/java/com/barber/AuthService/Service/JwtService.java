@@ -69,7 +69,7 @@ public class JwtService {
         return GenerateToken(new HashMap<>(), userDetails);
     }
 
-    //
+    //check if token is expired or not
     public boolean TokenIsValid (UserDetails userDetails, String jwt){
         return (!IsExpired(jwt) && ExtracEmail(jwt).equals(userDetails.getUsername()));
         }
