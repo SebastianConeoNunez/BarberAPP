@@ -6,6 +6,7 @@ import com.barber.AuthService.dto.ResponseRegister;
 import com.barber.AuthService.model.Role;
 import com.barber.AuthService.model.Users;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
+    @Autowired
     private final UsersRepository repository;
+    @Autowired
     private final PasswordEncoder encoder;
-
+    @Autowired
     private final JwtService jwtService;
 
     public String Register(RequestrRegister register){
