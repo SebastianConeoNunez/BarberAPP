@@ -1,6 +1,7 @@
 package com.barber.AuthService.AuthController;
 
 import com.barber.AuthService.Service.AuthenticationService;
+import com.barber.AuthService.dto.BarberShopRequest;
 import com.barber.AuthService.dto.LoginRequest;
 import com.barber.AuthService.dto.RequestrRegister;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,12 @@ public class controller {
     @ResponseStatus(HttpStatus.CREATED)
     public String Register(@RequestBody RequestrRegister register){
         return service.Register(register);
+    }
+
+    @PostMapping("/RegisterBarber")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String RegisterBarber(@RequestBody BarberShopRequest registerBarbershop){
+        return service.RegisteBarbershop(registerBarbershop);
     }
 
     @GetMapping("/Login")

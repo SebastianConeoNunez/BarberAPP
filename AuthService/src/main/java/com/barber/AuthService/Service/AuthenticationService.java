@@ -1,9 +1,12 @@
 package com.barber.AuthService.Service;
 
+import com.barber.AuthService.Repository.BarberRepository;
 import com.barber.AuthService.Repository.UsersRepository;
+import com.barber.AuthService.dto.BarberShopRequest;
 import com.barber.AuthService.dto.LoginRequest;
 import com.barber.AuthService.dto.RequestrRegister;
 import com.barber.AuthService.dto.ResponseRegister;
+import com.barber.AuthService.model.BaberShop;
 import com.barber.AuthService.model.Role;
 import com.barber.AuthService.model.Users;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +22,9 @@ public class AuthenticationService {
 
     @Autowired
     private final UsersRepository repository;
+
+    @Autowired
+    private final BarberRepository barberRepository;
     @Autowired
     private final PasswordEncoder encoder;
     @Autowired
@@ -43,6 +49,23 @@ public class AuthenticationService {
                 .jwt(jwtService.GenerateToken(user))
                 .build();
 
+        return responseRegister.getJwt();
+    }
+
+    public String RegisteBarbershop(BarberShopRequest request){
+
+        BaberShop baberShop = BaberShop.builder()
+                .CompanyName(request.getCompanyName())
+                .email(request.getEmail())
+                .password(encoder.encode(request.getPassword()))
+                .role(Role.ADMIN)
+                .build();
+
+        barberRepository.save(baberShop);
+
+        ResponseRegister responseRegister = ResponseRegister.builder()
+                .jwt(jwtService.GenerateToken(baberShop))
+                .build();
         return responseRegister.getJwt();
     }
 

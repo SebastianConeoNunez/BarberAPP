@@ -6,32 +6,26 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.nio.channels.Pipe;
 import java.util.Collection;
 import java.util.List;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 
 @Entity
-@Table(name = "UsersDataBase")
-public class Users implements UserDetails {
+@Table(name = "BarberShopsDataBase")
+public class BaberShop implements UserDetails {
 
     @Id @GeneratedValue
-    private Integer id;
+    private Integer id ;
     @NonNull
-    private String name;
-    @NonNull
-    private String Lastname;
-    @NonNull
-    private String user;
+    private String CompanyName;
     @NonNull
     private String password;
     @NonNull
     private String email;
-    private Integer age;
 
     @Enumerated(EnumType.STRING)
     private Role role ;
@@ -42,22 +36,27 @@ public class Users implements UserDetails {
     }
 
     @Override
-    public String getUsername() {return getEmail();
+    public String getUsername() {
+        return getEmail();
     }
 
     @Override
-    public boolean isAccountNonExpired() {return true;
+    public boolean isAccountNonExpired() {
+        return false;
     }
 
     @Override
-    public boolean isAccountNonLocked() {return true;
+    public boolean isAccountNonLocked() {
+        return false;
     }
 
     @Override
-    public boolean isCredentialsNonExpired() {return true;
+    public boolean isCredentialsNonExpired() {
+        return false;
     }
 
     @Override
-    public boolean isEnabled() {return true;
+    public boolean isEnabled() {
+        return false;
     }
 }
