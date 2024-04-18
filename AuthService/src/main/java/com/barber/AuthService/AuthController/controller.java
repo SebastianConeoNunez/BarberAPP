@@ -1,6 +1,7 @@
 package com.barber.AuthService.AuthController;
 
 import com.barber.AuthService.Service.AuthenticationService;
+import com.barber.AuthService.dto.LoginRequest;
 import com.barber.AuthService.dto.RequestrRegister;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,4 +21,13 @@ public class controller {
     public String Register(@RequestBody RequestrRegister register){
         return service.Register(register);
     }
+
+    @GetMapping("/Login")
+    @ResponseStatus(HttpStatus.OK)
+    public String Login(@RequestBody LoginRequest loginRequest){
+        return service.Login(loginRequest);
+    }
+
 }
+
+
