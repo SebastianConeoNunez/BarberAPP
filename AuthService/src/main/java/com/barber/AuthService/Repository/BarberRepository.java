@@ -1,10 +1,14 @@
 package com.barber.AuthService.Repository;
 
-import com.barber.AuthService.model.BaberShop;
+
+import com.barber.AuthService.model.barber;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface BarberRepository extends JpaRepository <BaberShop,Integer>{
-    Optional<BaberShop> findByemai(String email);
+
+@Repository
+public interface BarberRepository extends JpaRepository <barber,Integer>{
+    Optional<barber> findByEmail(String email);
 }

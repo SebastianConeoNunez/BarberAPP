@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/auth")
+@RequestMapping("api/auth")
 public class controller {
 
     private final AuthenticationService service ;
 
-    @PostMapping("/Register")
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public String Register(@RequestBody RequestrRegister register){
         return service.Register(register);
@@ -29,11 +29,12 @@ public class controller {
         return service.RegisteBarbershop(registerBarbershop);
     }
 
-    @GetMapping("/Login")
+    @GetMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public String Login(@RequestBody LoginRequest loginRequest){
         return service.Login(loginRequest);
     }
+
 
 }
 

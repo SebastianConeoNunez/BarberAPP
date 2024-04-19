@@ -21,15 +21,15 @@ public class Users implements UserDetails {
 
     @Id @GeneratedValue
     private Integer id;
-    @NonNull
+
     private String name;
-    @NonNull
-    private String Lastname;
-    @NonNull
-    private String user;
-    @NonNull
+
+    private String lastname;
+
+    private String useres;
+
     private String password;
-    @NonNull
+
     private String email;
     private Integer age;
 

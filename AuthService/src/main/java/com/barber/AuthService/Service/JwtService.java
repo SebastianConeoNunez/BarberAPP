@@ -1,5 +1,6 @@
 package com.barber.AuthService.Service;
 
+import com.barber.AuthService.model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -12,12 +13,13 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 @Service
 public class JwtService {
 
-    private static final String SecretKey = "AAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBCCCCCCCCCCC";
+    private static final String SecretKey = "AAAAAAA1321321AAAAAAAAAAA13112321AAAAAAAAABBBBBBBBBBBBBa12131BBBBBBBBBBBBCCCCCCCCCCC";
 
 
 
@@ -27,6 +29,14 @@ public class JwtService {
     }
     public String ExtracEmail(String jwt) {
         return ExtracSingleClaim(jwt,Claims::getSubject);
+    }
+
+
+    public String ExtracRole(String jwt) {
+        return ExtracSingleClaim(jwt, claims -> {
+            String role = claims.get("Role", String.class);
+            return role;
+        });
     }
 
     public Date ExtracExpirationDate(String jwt){
@@ -53,7 +63,7 @@ public class JwtService {
     }
 
     // In this way I generated a token with the possibility to add extraClaims
-    public String GenerateToken (Map<String, Object> ExtraClaim , UserDetails userDetails){
+    public String GenerateToken (Map<String,Object> ExtraClaim , UserDetails userDetails){
         return Jwts
                 .builder()
                 .setClaims(ExtraClaim)

@@ -12,6 +12,6 @@ public class RequestrRegister {
     private String lastname;
     private String email;
     private String password;
-    private String user;;
+    private String user;
     private Integer age;
 }

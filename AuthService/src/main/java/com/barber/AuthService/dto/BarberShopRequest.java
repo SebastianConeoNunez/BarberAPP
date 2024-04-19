@@ -10,7 +10,8 @@ import lombok.*;
 @NoArgsConstructor
 public class BarberShopRequest {
 
-    private String CompanyName;
-    private String password;
+    private String companyname;
     private String email;
+    private String password;
+
 }

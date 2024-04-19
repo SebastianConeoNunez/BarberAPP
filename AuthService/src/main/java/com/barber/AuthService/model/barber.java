@@ -16,16 +16,18 @@ import java.util.List;
 
 @Entity
 @Table(name = "BarberShopsDataBase")
-public class BaberShop implements UserDetails {
+public class barber implements UserDetails {
 
     @Id @GeneratedValue
     private Integer id ;
-    @NonNull
-    private String CompanyName;
-    @NonNull
+
+    private String companyname;
+
     private String password;
-    @NonNull
+
     private String email;
+
+
 
     @Enumerated(EnumType.STRING)
     private Role role ;
@@ -42,21 +44,21 @@ public class BaberShop implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
