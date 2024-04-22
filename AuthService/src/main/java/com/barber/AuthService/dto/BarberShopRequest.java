@@ -9,9 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BarberShopRequest {
-
     private String companyname;
     private String email;
     private String password;
-
 }

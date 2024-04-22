@@ -2,6 +2,7 @@ package com.barber.AuthService.Configuration;
 
 import com.barber.AuthService.AuthFilter.JwtAuthFilter;
 import com.barber.AuthService.Repository.BarberRepository;
+import com.barber.AuthService.Repository.BarberUserRepository;
 import com.barber.AuthService.Repository.UsersRepository;
 import com.barber.AuthService.Service.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,8 @@ public class ApplicationConfiguration {
     private final UsersRepository repository;
     private final BarberRepository repositoryB;
 
+    private final BarberUserRepository repositorC;
+
 
 
     @Bean
@@ -35,11 +38,15 @@ public class ApplicationConfiguration {
                     .orElse(null);
             UserDetails userFromBarberRepository = repositoryB.findByEmail(username)
                     .orElse(null);
+            UserDetails userFromBarberUserRepository = repositorC.findByEmail(username)
+                    .orElse(null);
 
             if (userFromUserRepository != null) {
                 return userFromUserRepository;
             } else if (userFromBarberRepository != null) {
                 return userFromBarberRepository;
+            } else if (userFromBarberUserRepository != null) {
+                return userFromBarberUserRepository;
             } else {
                 throw new UsernameNotFoundException("User not found");
             }

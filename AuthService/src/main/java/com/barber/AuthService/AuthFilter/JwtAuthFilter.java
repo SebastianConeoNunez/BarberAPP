@@ -50,7 +50,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         jwt = authHeader.substring(7);
         userEmail= service.ExtracEmail(jwt);
-        role = service.ExtracRole(jwt);
+
 
 
         if(userEmail!=null && SecurityContextHolder.getContext().getAuthentication() ==null){
