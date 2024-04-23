@@ -1,8 +1,10 @@
 package com.barber.AuthService.Service;
 
 import com.barber.AuthService.Repository.BarberRepository;
+import com.barber.AuthService.Repository.BarberUserRepository;
 import com.barber.AuthService.Repository.UsersRepository;
 import com.barber.AuthService.dto.*;
+import com.barber.AuthService.model.Barbers;
 import com.barber.AuthService.model.Role;
 import com.barber.AuthService.model.Users;
 import com.barber.AuthService.model.barber;
@@ -25,9 +27,11 @@ public class AuthenticationService {
 
     @Autowired
     private final UsersRepository repository;
-
     @Autowired
     private final BarberRepository barberRepository;
+
+    @Autowired
+    private final BarberUserRepository barberUserRepository;
     @Autowired
     private final PasswordEncoder encoder;
     @Autowired
@@ -36,6 +40,9 @@ public class AuthenticationService {
     private final AuthenticationManager manager;
 
 
+
+
+    //Register normal Users
     public String Register(RequestrRegister register){
         var user = Users.builder()
                 .name(register.getName())
@@ -61,6 +68,7 @@ public class AuthenticationService {
         return responseRegister.getJwt();
     }
 
+    //Register Barbershops company
     public String RegisteBarbershop(BarberShopRequest request){
 
         var baberShop = barber.builder()
@@ -81,6 +89,33 @@ public class AuthenticationService {
                 .build();
         return responseRegister.getJwt();
     }
+
+    //Register barbers
+    public String RegisterBarber(BarberRequest barberRequest){
+        var barber = Barbers.builder()
+                .name(barberRequest.getName())
+                .lastname(barberRequest.getLastname())
+                .password(encoder.encode(barberRequest.getPassword()))
+                .age(barberRequest.getAge())
+                .email(barberRequest.getEmail())
+                .nickname(barberRequest.getNickname())
+                .role(Role.BARBER)
+                .build();
+
+        barberUserRepository.save(barber);
+
+        String value = String.valueOf(barber.getRole());
+        Map<String,Object>claims = new HashMap<>();
+        claims.put("Role",value);
+
+        ResponseRegister responseRegister = ResponseRegister.builder()
+                .jwt(jwtService.GenerateToken(claims,barber))
+                .build();
+
+        return responseRegister.getJwt();
+    }
+
+    //With this login we can log every kind of role: Barbers, Users , and Barbershop
 
     public String Login(LoginRequest loginRequest) {
 
@@ -129,6 +164,29 @@ public class AuthenticationService {
             } catch (Exception e) {
                 System.out.println("No soy usurario");
             }
+        } else if (loginRequest.getRole().equals("barber")) {
+            try {
+                manager.authenticate(
+                        new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword())
+                );
+
+                var Barber = barberUserRepository.findByEmail(loginRequest.getEmail()).orElseThrow();
+                String value = String.valueOf(Barber.getRole());
+                Map<String, Object> claims = new HashMap<>();
+                claims.put("Role", value);
+
+                ResponseRegister response = ResponseRegister.builder()
+                        .jwt(jwtService.GenerateToken(claims, Barber))
+                        .build();
+                jwt = response.getJwt();
+                String rol = jwtService.ExtracRole(jwt);
+                String emaill = jwtService.ExtracEmail(jwt);
+                System.out.print("Bienvenido " + rol + emaill);
+
+            }catch (Exception e){
+                System.out.println("No soy barbero");
+            }
+
         }
 
         return jwt;

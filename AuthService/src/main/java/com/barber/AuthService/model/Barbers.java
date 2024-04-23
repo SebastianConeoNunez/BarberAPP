@@ -33,6 +33,7 @@ public class Barbers implements UserDetails {
     private String age;
     private String barbershop;
     private String email;
+    private String nickname;
 
     @Enumerated(EnumType.STRING)
     private Role role;

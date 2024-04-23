@@ -1,6 +1,7 @@
 package com.barber.AuthService.AuthController;
 
 import com.barber.AuthService.Service.AuthenticationService;
+import com.barber.AuthService.dto.BarberRequest;
 import com.barber.AuthService.dto.BarberShopRequest;
 import com.barber.AuthService.dto.LoginRequest;
 import com.barber.AuthService.dto.RequestrRegister;
@@ -27,6 +28,12 @@ public class controller {
     @ResponseStatus(HttpStatus.CREATED)
     public String RegisterBarber(@RequestBody BarberShopRequest registerBarbershop){
         return service.RegisteBarbershop(registerBarbershop);
+    }
+
+    @PostMapping("/RegisterBarbersUser")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String RegisterBarbersUsers(@RequestBody BarberRequest barberRequest){
+        return service.RegisterBarber(barberRequest);
     }
 
     @GetMapping("/login")
