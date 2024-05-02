@@ -40,8 +40,6 @@ public class AuthenticationService {
     private final AuthenticationManager manager;
 
 
-
-
     //Register normal Users
     public String Register(RequestrRegister register){
         var user = Users.builder()
