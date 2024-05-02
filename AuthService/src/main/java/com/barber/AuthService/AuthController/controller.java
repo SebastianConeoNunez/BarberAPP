@@ -1,10 +1,7 @@
 package com.barber.AuthService.AuthController;
 
 import com.barber.AuthService.Service.AuthenticationService;
-import com.barber.AuthService.dto.BarberRequest;
-import com.barber.AuthService.dto.BarberShopRequest;
-import com.barber.AuthService.dto.LoginRequest;
-import com.barber.AuthService.dto.RequestrRegister;
+import com.barber.AuthService.dto.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,6 +37,12 @@ public class controller {
     @ResponseStatus(HttpStatus.OK)
     public String Login(@RequestBody LoginRequest loginRequest){
         return service.Login(loginRequest);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public BarberInformationResponse Information(@RequestParam("BarberEmail") String Barber ){
+        return service.getInfomation(Barber);
     }
 
 
