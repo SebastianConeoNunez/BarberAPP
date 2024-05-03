@@ -52,7 +52,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         userEmail= service.ExtracEmail(jwt);
 
 
-
         if(userEmail!=null && SecurityContextHolder.getContext().getAuthentication() ==null){
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
             //update the security context holder

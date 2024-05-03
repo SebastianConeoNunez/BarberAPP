@@ -39,11 +39,6 @@ public class controller {
         return service.Login(loginRequest);
     }
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public BarberInformationResponse Information(@RequestParam("BarberEmail") String Barber ){
-        return service.getInfomation(Barber);
-    }
 
 
 }

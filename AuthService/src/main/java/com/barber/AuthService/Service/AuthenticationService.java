@@ -189,20 +189,4 @@ public class AuthenticationService {
 
         return jwt;
     }
-
-
-    @Transactional(readOnly = true)
-    public BarberInformationResponse getInfomation (String barber){
-
-        var barberuser = barberUserRepository.findByEmail(barber).orElseThrow();
-        BarberInformationResponse barberInformationResponse = BarberInformationResponse.builder()
-                .name(barberuser.getName())
-                .barbershop(barberuser.getBarbershop())
-                .age(barberuser.getAge())
-                .email(barberuser.getEmail())
-                .lastname(barberuser.getLastname())
-                .nickname(barberuser.getNickname())
-                .build();
-        return barberInformationResponse;
-    }
 }
