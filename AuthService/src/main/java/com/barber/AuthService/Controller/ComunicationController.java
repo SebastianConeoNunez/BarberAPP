@@ -13,7 +13,7 @@ public class ComunicationController {
 
     private final ComunicationService service;
 
-    @GetMapping
+    @GetMapping("/generalinformation")
     @ResponseStatus(HttpStatus.OK)
     public BarberInformationResponse Information(){
         return service.getInfomation();
