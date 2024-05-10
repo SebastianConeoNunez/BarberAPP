@@ -15,17 +15,19 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 import java.util.List;
 
+@Entity
+@Table(name = "Barbers")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 
 
-@Entity
-@Table(name = "Barbers")
+
 public class Barbers implements UserDetails {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id ;
     private String name;
     private String lastname;

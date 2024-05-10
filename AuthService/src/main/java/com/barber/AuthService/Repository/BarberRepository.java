@@ -9,6 +9,6 @@ import java.util.Optional;
 
 
 @Repository
-public interface BarberRepository extends JpaRepository <barber,Integer>{
+public interface BarberRepository extends JpaRepository <barber, Integer>{
     Optional<barber> findByEmail(String email);
 }

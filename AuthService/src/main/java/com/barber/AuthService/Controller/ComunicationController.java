@@ -19,4 +19,8 @@ public class ComunicationController {
         return service.getInfomation();
     }
 
+    @PostMapping("/addbarbertobarbershop/{barber}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String addBarberToBarbershop (@PathVariable String barber){return service.Addbarbertobarbershop(barber);}
+
 }

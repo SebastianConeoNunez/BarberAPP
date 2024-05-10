@@ -5,20 +5,22 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
 
+@Entity
+@Table(name = "BarberShopsDataBase")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 
-@Entity
-@Table(name = "BarberShopsDataBase")
+
 public class barber implements UserDetails {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id ;
 
     private String companyname;
