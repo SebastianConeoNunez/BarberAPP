@@ -21,6 +21,7 @@ public class ComunicationService {
     private final BarberUserRepository barberUserRepository;
     private final BarberRepository barberRepository;
 
+    //update the secuirty context holder and get the email from the token
     private String  UpdateSecurity(){
 
         String userEmail = null;
@@ -34,6 +35,8 @@ public class ComunicationService {
         }
     }
 
+
+    //Get information for barbers ... soon for alls
     @Transactional(readOnly = true)
     public BarberInformationResponse getInfomation (){
 
@@ -50,7 +53,7 @@ public class ComunicationService {
         return barberInformationResponse;
     }
 
-
+    //add bararbe to a barbershop and add the company name of the barbershop to the  barber information
     @Transactional
     public String Addbarbertobarbershop(String barber){
         String userEmail = UpdateSecurity();
@@ -59,8 +62,14 @@ public class ComunicationService {
         var barberUser = barberUserRepository.findByEmail(barber);
         var myBarber = barberRepository.findByEmail(userEmail);
         Barbers Barber = barberUser.orElse(null);
-        myBarber.get().getListofBarbers().add(Barber);
-        System.out.println(myBarber.get().getListofBarbers());
-        return "Barbero agregado";
+        if(Barber.getBarbershop() != null){
+            return "Sorry, this barber is actually working for other enterprise";
+        }else {
+            myBarber.get().getListofBarbers().add(Barber);
+            System.out.println(myBarber.get().getListofBarbers());
+            barberUser.get().setBarbershop(myBarber.get().getCompanyname());
+            return "Barbero added successfully";
+
+        }
     }
 }
