@@ -19,8 +19,8 @@ public class ComunicationController {
         return service.getInfomation();
     }
 
-    @PostMapping("/addbarbertobarbershop/{barber}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addBarberToBarbershop (@PathVariable String barber){return service.Addbarbertobarbershop(barber);}
+    @PatchMapping("/addbarbertobarbershop")
+    @ResponseStatus(HttpStatus.OK)
+    public String addBarberToBarbershop (@RequestParam(name = "barber") String barber){return service.Addbarbertobarbershop(barber);}
 
 }
